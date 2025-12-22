@@ -18,14 +18,14 @@
         .date-header{text-align:center;font-weight:bold;}
         .event-chip{display:block;font-size:.7rem;padding:2px 4px;border-radius:4px;margin-bottom:2px;color:#fff;}
         .member-legend-badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.75rem;margin:2px 4px 2px 0;color:#fff;}
-        .member-color-0{background:#ff8a80;}
-        .member-color-1{background:#ffb74d;}
-        .member-color-2{background:#ffd54f;color:#000;}
-        .member-color-3{background:#81c784;}
-        .member-color-4{background:#4fc3f7;}
-        .member-color-5{background:#9575cd;}
-        .member-color-6{background:#f06292;}
-        .member-color-7{background:#a1887f;}
+        .member-color-0{background:#F5B4D2;}
+        .member-color-1{background:#96D7FA;}
+        .member-color-2{background:#FFF5A0;color:#000;}
+        .member-color-3{background:#C8B4FA;}
+        .member-color-4{background:#FFEBF0;}
+        .member-color-5{background:#FFAA8C;}
+        .member-color-6{background:#FF96C8;}
+        .member-color-7{background:#D2F5FF;}
         .mobile-day-card{background:#fff;border-radius:.5rem;padding:.75rem;border:1px solid #dee2e6;margin-bottom:.75rem;}
         .mobile-event-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;}
         .mobile-event-time{font-size:.8rem;width:60px;flex-shrink:0;color:#555;}
@@ -133,6 +133,21 @@ END:VEVENT
             const M=C(()=>{if(!a.length)return null;const d=Array.from(new Set(a.map(e=>e.startDate)));d.sort((e,f)=>e.localeCompare(f));return{start:d[0],end:d[d.length-1]}},[a]);
             const N=C(()=>{const d=new Set(K.filter(e=>!e.allDay&&e.startTime).map(e=>e.startTime)),f=Array.from(d);return f.sort((g,h)=>{const[i,j]=g.split(":").map(Number),[k,l]=h.split(":").map(Number);return i-k||j-l}),f},[K]);
             const O=d=>{const[e,f,g]=d.split("/").map(Number),h=new Date(e,f-1,g),i=["日","月","火","水","木","金","土"][h.getDay()];return"("+i+")"};
+            // メンバー名と色を完全固定（超シンプル）
+            const MEMBER_COLOR_MAP = {
+                "若魔藤あんず": 0,
+                "若魔白ソーダ": 1,
+                "若魔麦たると": 2,
+                "若魔影ネオン": 3,
+                "若魔雲ふわり": 4,
+                "若魔陽エル": 5,
+                "ニャマシュバ・ルッツ": 6,
+                "ニャマルベール・ペルル": 7
+            };
+            const getMemberColorClass = (member) => {
+                const idx = MEMBER_COLOR_MAP[member] ?? 0; // 未定義は0番
+                return `member-color-${idx}`;
+            };
             return(
                 <div>
                     {M&&(
@@ -158,7 +173,7 @@ END:VEVENT
                             <div className="mb-3">
                                 <span className="fw-bold me-2">メンバー色分け</span>
                                 {b.map(d=>(
-                                    <span key={d} className={"member-legend-badge "+J(d)}>{d}</span>
+                                    <span key={d} className={"member-legend-badge "+getMemberColorClass(d)}>{d}</span>
                                 ))}
                             </div>
 
@@ -185,7 +200,7 @@ END:VEVENT
                                                 return(
                                                     <td key={d}>
                                                         {e.map((f,g)=>(
-                                                            <span key={g} className={"event-chip "+J(f.member)}>
+                                                            <span key={g} className={"event-chip "+getMemberColorClass(f.member)}>
                                 [{f.member}] {f.title}
                               </span>
                                                         ))}
@@ -201,7 +216,7 @@ END:VEVENT
                                                     return(
                                                         <td key={e+d}>
                                                             {f.map((g,h)=>(
-                                                                <span key={h} className={"event-chip "+J(g.member)}>
+                                                                <span key={h} className={"event-chip "+getMemberColorClass(g.member)}>
                                   [{g.member}] {g.title}{g.endTime&&<>（〜{g.endTime}）</>}
                                 </span>
                                                             ))}
@@ -235,7 +250,7 @@ END:VEVENT
                                                 <div className="mb-1">
                                                     <div className="text-muted" style={{fontSize:".75rem"}}>終日</div>
                                                     {f.map((h,i)=>(
-                                                        <div key={i} className={"event-chip "+J(h.member)} style={{display:"inline-block",marginRight:"4px"}}>
+                                                        <div key={i} className={"event-chip "+getMemberColorClass(h.member)} style={{display:"inline-block",marginRight:"4px"}}>
                                                             [{h.member}] {h.title}
                                                         </div>
                                                     ))}
@@ -247,7 +262,7 @@ END:VEVENT
                                                         {h.startTime}{h.endTime&&<div>〜{h.endTime}</div>}
                                                     </div>
                                                     <div className="mobile-event-content">
-                          <span className={"event-chip "+J(h.member)} style={{display:"inline-block"}}>
+                          <span className={"event-chip "+getMemberColorClass(h.member)} style={{display:"inline-block"}}>
                             [{h.member}] {h.title}
                           </span>
                                                     </div>
