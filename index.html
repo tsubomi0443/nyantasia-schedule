@@ -22,9 +22,9 @@
         .member-color-1{background:#96D7FA;}
         .member-color-2{background:#FFF5A0;color: #b8b173;}
         .member-color-3{background:#C8B4FA;}
-        .member-color-4{background:#FFEBF0;color: #b19ea3;}
+        .member-color-4{background:#FFD3D5;color: #97868b;}
         .member-color-5{background:#FFAA8C;}
-        .member-color-6{background:#FF96C8;}
+        .member-color-6{background:#798088;}
         .member-color-7{background:#D2F5FF;color: #90a7ae;}
         .mobile-day-card{background:#fff;border-radius:.5rem;padding:.75rem;border:1px solid #dee2e6;margin-bottom:.75rem;}
         .mobile-event-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;}
@@ -217,7 +217,7 @@ END:VEVENT
                                                         <td key={e+d}>
                                                             {f.map((g,h)=>(
                                                                 <span key={h} className={"event-chip "+getMemberColorClass(g.member)}>
-                                  [{g.member}] {g.title}{g.endTime&&<>（〜{g.endTime}）</>}
+                                  [{g.member}] {g.title}{g.endTime&&<>（{g.startTime}〜）</>}
                                 </span>
                                                             ))}
                                                         </td>
